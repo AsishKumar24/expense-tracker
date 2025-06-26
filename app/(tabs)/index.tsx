@@ -1,75 +1,140 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+//home tab
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import React from "react";
+import Button from "@/components/Button";
+import Typo from "@/components/Typo";
+import { colors, SpacingX, SpacingY } from "@/constants/Theme";
+import { auth } from "@/config/firebase";
+import { signOut } from "firebase/auth";
+import ScreenWrapper from "@/components/ScreenWrapper";
+import { verticalScale } from "@/utils/Styling";
+import { useAuth } from "@/contexts/authContext";
+import * as Icons from "phosphor-react-native";
+import HomeCard from "@/components/HomeCard";
+import TransactionList from "@/components/TransactionList";
+import { useRouter } from "expo-router";
+import { limit, orderBy, where } from "firebase/firestore";
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+import useFetchData from "@/hooks/useFetchData";
+import { TransactionType } from "@/types";
+import useUserTransactions from "@/hooks/useUserTransaction";
 
-export default function HomeScreen() {
+const Home = () => {
+  // const handleLogout = async () => {
+  //     //logout logic here
+  //     await signOut(auth);
+  // }
+  const { user } = useAuth();
+  const router = useRouter();
+  // const {
+  //   data: transactions,
+  //   loading: transactionLoading,
+  //   error,
+  // } = useUserTransactions();
+  // console.log("recent transactions", transactions);
+
+
+  const constraints = [
+    where("uid", "==", user?.uid),
+    orderBy("date", "desc"),
+    limit(30)
+  ];
+ 
+  const {
+    data: transactions,
+    error,
+    loading: transactionLoading,
+  } = useFetchData<TransactionType>("transactions",
+    constraints);
+   //console.log("recent transactions", transactions  );
+  // console.log("user" , user?.uid)
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+    <ScreenWrapper>
+      <View style={desgin.container}>
+        {/* header */}
+        <View style={desgin.header}>
+          <View style={{ gap: 4 }}>
+            <Typo size={16} color={colors.neutral400}>
+              Arigato,
+            </Typo>
+            <Typo size={20} fontWeight={"500"}>
+              {user?.name}
+            </Typo>
+          </View>
+          <TouchableOpacity style={desgin.searchIcon}>
+            <Icons.MagnifyingGlass
+              size={verticalScale(22)}
+              color={colors.primary}
+              weight="duotone"
+            />
+          </TouchableOpacity>
+        </View>
+        <ScrollView
+          contentContainerStyle={desgin.scrollViewStyle}
+          showsVerticalScrollIndicator={true}
+        >
+          <View>
+            <HomeCard />
+          </View>
+          <TransactionList
+            //data={recentTransactions[0].data}
+            //invalid recentTransactions.data
+            data={transactions}
+            //data={recentTransactions}
+            title={"Recent Transactions"}
+            emptyListMessage={"No Transaction Available"}
+            loading={transactionLoading}
+          />
+        </ScrollView>
+        <Button
+          style={desgin.floatingButton}
+          onPress={() => router.push("/(modals)/TransactionModal")}
+        >
+          <Icons.Plus size={verticalScale(25)} />
+        </Button>
+      </View>
+    </ScreenWrapper>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+export default Home;
+
+const desgin = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingHorizontal: SpacingX._20,
+    marginTop: verticalScale(8),
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  header: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: SpacingY._10,
+    alignItems: "center",
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  searchIcon: {
+    backgroundColor: colors.neutral900,
+    borderRadius: 10,
+    elevation: 2,
+    shadowColor: "#000",
+  },
+  scrollViewStyle: {
+    marginTop: SpacingY._10,
+    paddingBottom: verticalScale(100),
+    gap: SpacingY._25,
+  },
+  floatingButton: {
+    height: verticalScale(50),
+    width: verticalScale(50),
+    borderRadius: 100,
+    //backgroundColor: colors.primary,
+    position: "absolute", // so that it does not mess with the content
+    bottom: verticalScale(30),
+    right: verticalScale(15),
   },
 });
