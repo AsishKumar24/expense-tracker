@@ -1,8 +1,7 @@
 import { CategoryType, ExpenseCategoriesType } from "@/types";
-import { colors } from "./Theme";
 
 import * as Icons from "phosphor-react-native"; // Import all icons dynamically
-
+//adasd
 export const expenseCategories: ExpenseCategoriesType = {
   groceries: {
     label: "Groceries",
