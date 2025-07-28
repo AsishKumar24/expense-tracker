@@ -1,50 +1,70 @@
-# Welcome to your Expo app 👋
+# 💸 Expense Tracker
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A cross-platform mobile app built with **React Native** and **Expo Router** to help users manage and visualize their expenses effectively.
 
-## Get started
+---
 
-1. Install dependencies
+## 🚀 Features
 
-   ```bash
-   npm install
-   ```
+- 📊 Visualize expenses with interactive charts
+- 📅 Select dates using native date pickers
+- 💾 Persistent storage with AsyncStorage
+- 🔍 Filter expenses by category or type
+- 📱 Android, iOS, and Web support
+- 🔐 Firebase integration for backend services
+- 🌗 Light/Dark mode support (based on system UI)
 
-2. Start the app
+---
 
-   ```bash
-   npx expo start
-   ```
+## 🧰 Tech Stack
 
-In the output, you'll find options to open the app in a
+### Core
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- React Native 0.79.4
+- Expo SDK 53
+- Expo Router 5.1
+- TypeScript
+- Firebase
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+### UI & UX
 
-## Get a fresh project
+- `@expo/vector-icons`
+- `expo-linear-gradient`, `expo-haptics`, `expo-blur`
+- `phosphor-react-native`
+- `@react-native-segmented-control/segmented-control`
+- `react-native-element-dropdown`
 
-When you're ready, run:
+### Navigation
+
+- `@react-navigation/native`
+- `@react-navigation/bottom-tabs`
+- `expo-router`
+
+### State & Data Handling
+
+- `@react-native-async-storage/async-storage`
+- `axios`
+- `lodash`
+
+### Charts & Visualization
+
+- `react-native-gifted-charts`
+- `@shopify/flash-list`
+
+### Native Features
+
+- `expo-image-picker`
+- `expo-file-system`
+- `expo-constants`, `expo-status-bar`, `expo-system-ui`
+- `react-native-webview`
+- `@react-native-community/datetimepicker`
+
+---
+
+## 📦 Installation
 
 ```bash
-npm run reset-project
+git clone https://github.com/your-username/expense-tracker.git
+cd expense-tracker
+npm install
 ```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
