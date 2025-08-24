@@ -1,4 +1,4 @@
-# 💸 Expense Tracker
+# 💸 XpenseLog
 
 A cross-platform mobile app built with **React Native** and **Expo Router** to help users manage and visualize their expenses effectively.
 
