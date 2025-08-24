@@ -1,4 +1,6 @@
-# 💸 Expense Tracker
+# 💸 XpenseLog – Smart Expense Tracker
+
+[![Backend on GitHub](https://img.shields.io/badge/backend-xpenselog--backend-blue?logo=github)](https://github.com/AsishKumar24/expense-tracker-backend)
 
 **XpenseLog** is a full-stack, cross-platform mobile application built using **React Native**, **Expo Router**, and a **Node.js + AI-powered backend**. It helps users **track, manage, and analyze** their expenses intelligently through powerful visualizations and AI-generated insights. Receipt image uploads are handled on the **frontend using Cloudinary**.
 
