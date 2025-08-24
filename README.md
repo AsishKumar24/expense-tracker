@@ -1,70 +1,61 @@
-# 💸 XpenseLog
+# 💸 Expense Tracker
 
-A cross-platform mobile app built with **React Native** and **Expo Router** to help users manage and visualize their expenses effectively.
+**XpenseLog** is a full-stack, cross-platform mobile application built using **React Native**, **Expo Router**, and a **Node.js + AI-powered backend**. It helps users **track, manage, and analyze** their expenses intelligently through powerful visualizations and AI-generated insights. Receipt image uploads are handled on the **frontend using Cloudinary**.
 
 ---
 
 ## 🚀 Features
 
-- 📊 Visualize expenses with interactive charts
-- 📅 Select dates using native date pickers
-- 💾 Persistent storage with AsyncStorage
-- 🔍 Filter expenses by category or type
-- 📱 Android, iOS, and Web support
-- 🔐 Firebase integration for backend services
-- 🌗 Light/Dark mode support (based on system UI)
+- 📊 Interactive charts for visualizing spending  
+- 📅 Native date picker for filtering expenses  
+- 💾 Persistent local storage with AsyncStorage  
+- 🔍 Filter expenses by category, type, and time  
+- 🧠 AI-powered analysis of spending patterns  
+- 📤 Upload receipts and images via Cloudinary (frontend)  
+- 🔐 Firebase integration for backend services  
+- 🌙 Dark/light mode support  
+- 📱 Cross-platform support: Android, iOS, and Web  
 
 ---
 
 ## 🧰 Tech Stack
 
-### Core
+### Frontend (React Native + Expo)
+- **Framework**: React Native, Expo SDK 53, Expo Router  
+- **UI & UX**: `@expo/vector-icons`, `react-native-gifted-charts`, `@shopify/flash-list`, `phosphor-react-native`, `expo-linear-gradient`, `expo-haptics`  
+- **Navigation**: `@react-navigation/native`, `@react-navigation/bottom-tabs`  
+- **Storage**: `@react-native-async-storage/async-storage`  
+- **Utilities**: `lodash`, `axios`, `cloudinary` (for uploads)  
+- **Firebase**: Realtime Database or Auth  
+- **Image Uploads**: Cloudinary (integrated directly in frontend)
 
-- React Native 0.79.4
-- Expo SDK 53
-- Expo Router 5.1
-- TypeScript
-- Firebase
-
-### UI & UX
-
-- `@expo/vector-icons`
-- `expo-linear-gradient`, `expo-haptics`, `expo-blur`
-- `phosphor-react-native`
-- `@react-native-segmented-control/segmented-control`
-- `react-native-element-dropdown`
-
-### Navigation
-
-- `@react-navigation/native`
-- `@react-navigation/bottom-tabs`
-- `expo-router`
-
-### State & Data Handling
-
-- `@react-native-async-storage/async-storage`
-- `axios`
-- `lodash`
-
-### Charts & Visualization
-
-- `react-native-gifted-charts`
-- `@shopify/flash-list`
-
-### Native Features
-
-- `expo-image-picker`
-- `expo-file-system`
-- `expo-constants`, `expo-status-bar`, `expo-system-ui`
-- `react-native-webview`
-- `@react-native-community/datetimepicker`
+### Backend (Node.js + AI)
+- **Server**: Express.js  
+- **AI Service**: Google Generative AI (`@google/genai`)  
+- **Firebase**: User data and optional storage  
+- **Dev Tools**: Nodemon, dotenv, CORS  
+- **Source**: [xpenselog-backend](https://github.com/asishxp/xpenselog-backend)
 
 ---
 
-## 📦 Installation
+## 📁 Project Structure
 
 ```bash
-git clone https://github.com/your-username/expense-tracker.git
-cd expense-tracker
-npm install
-```
+root/
+│
+├── frontend/               # React Native App
+│   ├── app/                # Routes with Expo Router
+│   ├── components/         # UI Components
+│   ├── screens/            # Screen Views
+│   ├── utils/              # Utility Functions
+│   ├── firebase/           # Firebase Config
+│   ├── assets/             # Images, Fonts
+│   └── cloudinary/         # Upload logic (e.g., useUploadImage.js)
+│
+├── backend/                # Node.js Backend
+│   ├── src/
+│   │   ├── app.js          # Express App Entry
+│   │   ├── routes/         # API Routes
+│   │   ├── controllers/    # Business Logic
+│   │   └── ai/             # GenAI Integration
+│   └── .env                # Environment Config
