@@ -13,6 +13,7 @@
 - 💾 Persistent local storage with AsyncStorage  
 - 🔍 Filter expenses by category, type, and time  
 - 🧠 AI-powered analysis of spending patterns  
+- 💬 Conversational AI assistant — log expenses in plain English (e.g. "spent 200 on coffee")  
 - 📤 Upload receipts and images via Cloudinary (frontend)  
 - 🔐 Firebase integration for backend services  
 - 🌙 Dark/light mode support  
@@ -37,6 +38,17 @@
 - **Firebase**: User data and optional storage  
 - **Dev Tools**: Nodemon, dotenv, CORS  
 - **Source**: [xpenselog-backend](https://github.com/asishxp/xpenselog-backend)
+
+---
+
+## 💬 AI Assistant (Conversational Logging)
+
+The app includes a chat-style assistant (the **Assistant** tab) that lets users record money in natural language instead of filling out a form. It talks to two endpoints on the Node backend:
+
+- **`POST /analyze`** — takes the user's transactions, computes income/expense totals, and asks Google Gemini for short, friendly budgeting advice.
+- **`POST /chat`** — takes a chat message plus recent history, the user's category list, and wallet names. Gemini classifies whether the user is **logging a transaction** or **just chatting** and returns a structured JSON object. When the intent is "log", the app resolves the wallet and writes a real transaction to Firestore through the existing transaction service, so wallet balances and totals stay consistent.
+
+The Gemini API key lives only on the backend (in an environment variable), never in the mobile app bundle.
 
 ---
 
