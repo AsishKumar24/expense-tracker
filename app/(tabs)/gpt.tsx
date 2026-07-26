@@ -45,9 +45,12 @@ const GptChat = () => {
   const listRef = useRef<FlatList<ChatMessage>>(null);
 
   // Live list of the user's wallets (needed to attach a logged transaction).
-  const { data: wallets } = useFetchData<WalletType>('wallets', [
-    where('uid', '==', user?.uid),
-  ]);
+  // Only build the uid filter once the user is loaded — passing undefined to
+  // where() throws, and the hook re-subscribes when this constraint changes.
+  const { data: wallets } = useFetchData<WalletType>(
+    'wallets',
+    user?.uid ? [where('uid', '==', user.uid)] : []
+  );
 
   const [messages, setMessages] = useState<ChatMessage[]>([
     {

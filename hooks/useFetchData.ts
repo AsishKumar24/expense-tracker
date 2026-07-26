@@ -33,12 +33,13 @@ const useFetchData = <T>(
       setLoading(false);
     });
     return () => unsub(); // ✅ Unsubscribes when component unmounts (how i didnt understood still) // This stops Firestore updates when the component unmounts
-  
 
 
 
-
-  }, []);
+    // Re-run when the collection or the query constraints change (e.g. when
+    // user.uid loads in after the first render), not only once on mount.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [collectionName, JSON.stringify(constraints)]);
   return {data , loading , error}
 }
 
